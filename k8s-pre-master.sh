@@ -41,7 +41,7 @@ sed -i -e 's/#UseDNS yes/UseDNS no/g' -e 's/GSSAPIAuthentication yes/GSSAPIAuthe
 #----------------Judge  install software for  wget--------------------
 TMP_WGET=`rpm -qa wget`
 if [ $TMP_WGET==" " ];then
-    echo -e "\033[33m##-----------------------------Please wait a moment installing wget------------------------##\033[0m"
+    echo -e "\033[33m##-----------------------------Please wait a moment  checking and install wget------------------------##\033[0m"
     yum install -y wget
 else
     echo -e "\033[31mThis wget aleary exist\n\033[0m"
@@ -65,7 +65,7 @@ sed -i '/ swap / s/^/#/' /etc/fstab
 #-----------------Judge Install Need Software yum-utils.noarch---------------------
 TMP_YUMUTILS=`rpm -qa yum-config-manager`
 if [ $TMP_YUMUTILS==" " ];then
-    echo -e "\033[33m##----------------------------------------Please wait a moment installing yum-utils.noarch----------------------##\n\033[0m"
+    echo -e "\033[33m##----------------------------------------Please wait a moment  checking and install yum-utils.noarch----------------------##\n\033[0m"
     yum install -y yum-utils.noarch
 else
     echo -e "\033[31mThe software for yum-utils.noarch aleary exist\n\033[0m"
