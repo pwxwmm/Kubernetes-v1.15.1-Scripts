@@ -6,7 +6,7 @@
 #Version:v0.1
 #K8s:V1.15.1
 #Docker:V19.03.1
-#This is Kubernetes Install One-Click Scripts
+#This is Kubernetes Install One-Click Scripts  : k8s-pre-master.sh
 
 source /opt/k8s-openrc.sh
 
