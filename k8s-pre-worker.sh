@@ -2,6 +2,7 @@
 
 #Author:weimengmeng
 #Date:August 3, 2019
+#Mail:1300042631@qq.com
 #Version:v0.1
 #K8s:V1.15.1
 #Docker:V19.03.1
@@ -124,6 +125,17 @@ docker images | grep mirrorgooglecontainers | awk '{print "docker rmi "  $1":"$2
 docker rmi coredns/coredns:1.3.1
 
 docker images
+
+printf "====================================================================================\n"
+printf "+                                                                                  +\n"
+printf "+ If you Can See kubeadm join Token, Please Use cat Command See /opt/k8s-init.txt  +\n"
+printf "+                                                                                  +\n"
+printf "+ If has place of the mistake, asks respectfully to point out mistakes.            +\n"
+printf "+                                                                                  +\n"
+printf "+ You can contact me ,Mail:1300042631@qq.com                                       +\n"
+printf "+                                                                                  +\n"
+printf "====================================================================================\n"
+
 
 printf "========================================\n"
 printf "+                                      +\n"
