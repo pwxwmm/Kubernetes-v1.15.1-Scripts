@@ -1,6 +1,7 @@
 #!/bin/bash
 
 #Author:weimengmeng
+#Mail:1300042631@qq.com     
 #Date:August 3, 2019
 #Version:v0.1
 #K8s:V1.15.1
@@ -141,9 +142,15 @@ kubectl get pods -n kube-system
 kubectl taint nodes --all node-role.kubernetes.io/master-
 
 
-printf "==============================================================================="
-printf " If you Can See kubeadm join Token, Please Use cat Command See /opt/k8s-init.txt "
-printf "==============================================================================="
+printf "====================================================================================\n"
+printf "+                                                                                  +\n"
+printf "+ If you Can See kubeadm join Token, Please Use cat Command See /opt/k8s-init.txt  +\n"
+printf "+                                                                                  +\n"
+printf "+ If has place of the mistake, asks respectfully to point out mistakes.            +\n"
+printf "+                                                                                  +\n"
+printf "+ You can contact me ,Mail:1300042631@qq.com                                       +\n"
+printf "+                                                                                  +\n"
+printf "====================================================================================\n"
 
 printf "========================================\n"
 printf "+                                      +\n"
