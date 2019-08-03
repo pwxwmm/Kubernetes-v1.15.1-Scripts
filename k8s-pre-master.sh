@@ -127,7 +127,7 @@ docker rmi coredns/coredns:1.3.1
 
 #==============K8s.Init=================
 echo "1" >/proc/sys/net/bridge/bridge-nf-call-iptables
-kubeadm init --pod-network-cidr=192.168.0.0/16 --kubernetes-version=v1.15.1 --apiserver-advertise-address=192.168.217.131  > /opt/k8s.init.txt
+kubeadm init --pod-network-cidr=192.168.0.0/16 --kubernetes-version=v1.15.1 --apiserver-advertise-address=192.168.217.131  > /opt/k8s-init.txt
 
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
@@ -139,6 +139,11 @@ kubectl get pods -n kube-system
 
 #==============Schedule The Node For Pod  With Master =============
 kubectl taint nodes --all node-role.kubernetes.io/master-
+
+
+printf "==============================================================================="
+printf " If you Can See kubeadm join Token, Please Use cat Command See /opt/k8s-init.txt "
+printf "==============================================================================="
 
 printf "========================================\n"
 printf "+                                      +\n"
