@@ -12,13 +12,20 @@ Firstly:
             Master: k8s-openrc.sh 、k8s-pre-master.sh.
             Worker1: k8s-openrc.sh 、 k8s-pre-worker.sh 
             Worker1: k8s-openrc.sh 、 k8s-pre-worker.sh 
+            
+         
 
  
 
 Secondly:
 
          First According to your own needs  configuration    k8s-openrc.sh 
-   
+         As k8s-openrc.sh  : 
+         such as :   Hostname   and  IP
+                      
+                      k8s-node1      192.168.217.131
+                      k8s-node2      192.168.217.132
+                      k8s-node3      192.168.217.133
 
 
 Thirdly:
