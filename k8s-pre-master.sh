@@ -9,6 +9,14 @@
 
 source /opt/k8s-openrc.sh
 
+printf "========================================\n"
+printf "+                                      +\n"
+printf "+                                      +\n"
+echo -e "\033[32m+    Hi Welcome To Kubernetes          +\033[0m"
+printf "+                                      +\n"
+printf "+                                      +\n"
+printf "========================================\n"
+
 #-------------------Judge EveryOne Node Hostname------------------------------
 if [[ `ip a |grep -w $HOST_MASTER_IP ` != '' ]];then
         hostnamectl set-hostname $HOST_MASTER_NAME
@@ -131,3 +139,11 @@ kubectl get pods -n kube-system
 
 #==============Schedule The Node For Pod  With Master =============
 kubectl taint nodes --all node-role.kubernetes.io/master-
+
+printf "========================================\n"
+printf "+                                      +\n"
+printf "+                                      +\n"
+echo -e "\033[32m+  Kubernetes Install Complete  ByeBye +\033[0m"
+printf "+                                      +\n"
+printf "+                                      +\n"
+printf "========================================\n"
