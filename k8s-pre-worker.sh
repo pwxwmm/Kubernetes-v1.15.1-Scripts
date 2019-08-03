@@ -126,15 +126,15 @@ docker rmi coredns/coredns:1.3.1
 
 docker images
 
-printf "====================================================================================\n"
-printf "+                                                                                  +\n"
-printf "+ If you Can See kubeadm join Token, Please Use cat Command See /opt/k8s-init.txt  +\n"
-printf "+                                                                                  +\n"
-printf "+ If has place of the mistake, asks respectfully to point out mistakes.            +\n"
-printf "+                                                                                  +\n"
-printf "+ You can contact me ,Mail:1300042631@qq.com                                       +\n"
-printf "+                                                                                  +\n"
-printf "====================================================================================\n"
+printf "==================================================================================================\n"
+printf "+                                                                                                +\n"
+printf "+ If you want See kubeadm join Token, Please Use cat Command See Master Node: /opt/k8s-init.txt  +\n"
+printf "+                                                                                                +\n"
+printf "+ If has place of the mistake, asks respectfully to point out mistakes.                          +\n"
+printf "+                                                                                                +\n"
+printf "+ You can contact me ,Mail:1300042631@qq.com                                                     +\n"
+printf "+                                                                                                +\n"
+printf "==================================================================================================\n"
 
 
 printf "========================================\n"
