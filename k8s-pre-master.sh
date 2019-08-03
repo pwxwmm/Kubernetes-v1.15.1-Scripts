@@ -1,8 +1,8 @@
 #!/bin/bash
 
 #Author:weimengmeng
-#Mail:1300042631@qq.com     
 #Date:August 3, 2019
+#Mail:1300042631@qq.com
 #Version:v0.1
 #K8s:V1.15.1
 #Docker:V19.03.1
@@ -10,13 +10,57 @@
 
 source /opt/k8s-openrc.sh
 
-printf "========================================\n"
-printf "+                                      +\n"
-printf "+                                      +\n"
-echo -e "\033[32m+    Hi Welcome To Kubernetes          +\033[0m"
-printf "+                                      +\n"
-printf "+                                      +\n"
-printf "========================================\n"
+printf "==========================================\n"
+printf "+                                        +\n"
+printf "+                                        +\n"
+echo -e "\033[32m+    Hi.    Welcome To Kubernetes        +\033[0m"
+printf "+                                        +\n"
+printf "+                                        +\n"
+printf "==========================================\n"
+
+#-------------------Judge EveryOne Node Hostname------------------------------
+if [[ `ip a |grep -w $HOST_MASTER_IP ` != '' ]];then
+        hostnamectl set-hostname $HOST_MASTER_NAME
+elif [[ `ip a |grep -w $HOST_WORKER1_IP ` != '' ]];then
+        hostnamectl set-hostname $HOST_WORKER1_NAME
+elif [[ `ip a |grep -w $HOST_WORKER2_IP ` != '' ]];then
+        hostnamectl set-hostname $HOST_WORKER2_NAME
+else
+        hostnamectl set-hostname $HOST_MASTER_NAME
+fi
+
+#--------------------Hosts Map----------------------------
+sed -i -e "/$HOST_MASTER_NAME/d" -e "/$HOST_WORKER1_NAME/d"  -e "/$HOST_WORKER2_NAME/d" /etc/hosts
+echo "$HOST_MASTER_IP $HOST_MASTER_NAME" >> /etc/hosts
+echo "$HOST_WORKER1_IP $HOST_WORKER1_NAME" >> /etc/hosts
+echo "$HOST_WORKER2_IP $HOST_WORKER2_NAME" >> /etc/hosts
+
+#------------------DNS Examine-------------------
+sed -i -e 's/#UseDNS yes/UseDNS no/g' -e 's/GSSAPIAuthentication yes/GSSAPIAuthentication no/g' /etc/ssh/sshd_config
+
+#----------------Judge  install software for  wget--------------------
+TMP_WGET=`rpm -qa wget`
+"k8s-pre-master.sh" 162L, 6899C written
+[root@k8s-node1 opt]# cat  k8s-pre-master.sh   
+#!/bin/bash
+
+#Author:weimengmeng
+#Date:August 3, 2019
+#Mail:1300042631@qq.com
+#Version:v0.1
+#K8s:V1.15.1
+#Docker:V19.03.1
+#This is Kubernetes Install One-Click Scripts
+
+source /opt/k8s-openrc.sh
+
+printf "==========================================\n"
+printf "+                                        +\n"
+printf "+                                        +\n"
+echo -e "\033[32m+    Hi.    Welcome To Kubernetes        +\033[0m"
+printf "+                                        +\n"
+printf "+                                        +\n"
+printf "==========================================\n"
 
 #-------------------Judge EveryOne Node Hostname------------------------------
 if [[ `ip a |grep -w $HOST_MASTER_IP ` != '' ]];then
@@ -41,7 +85,7 @@ sed -i -e 's/#UseDNS yes/UseDNS no/g' -e 's/GSSAPIAuthentication yes/GSSAPIAuthe
 #----------------Judge  install software for  wget--------------------
 TMP_WGET=`rpm -qa wget`
 if [ $TMP_WGET==" " ];then
-    echo -e "\033[33m##-----------------------------Please wait a moment  checking and install wget------------------------##\033[0m"
+    echo -e "\033[33m##-----------------------------Please wait a moment Checking install  wget------------------------##\033[0m"
     yum install -y wget
 else
     echo -e "\033[31mThis wget aleary exist\n\033[0m"
@@ -65,7 +109,7 @@ sed -i '/ swap / s/^/#/' /etc/fstab
 #-----------------Judge Install Need Software yum-utils.noarch---------------------
 TMP_YUMUTILS=`rpm -qa yum-config-manager`
 if [ $TMP_YUMUTILS==" " ];then
-    echo -e "\033[33m##----------------------------------------Please wait a moment  checking and install yum-utils.noarch----------------------##\n\033[0m"
+    echo -e "\033[33m##----------------------------------------Please wait a moment installing yum-utils.noarch----------------------##\n\033[0m"
     yum install -y yum-utils.noarch
 else
     echo -e "\033[31mThe software for yum-utils.noarch aleary exist\n\033[0m"
@@ -128,7 +172,7 @@ docker rmi coredns/coredns:1.3.1
 
 #==============K8s.Init=================
 echo "1" >/proc/sys/net/bridge/bridge-nf-call-iptables
-kubeadm init --pod-network-cidr=192.168.0.0/16 --kubernetes-version=v1.15.1 --apiserver-advertise-address=192.168.217.131  > /opt/k8s-init.txt
+kubeadm init --pod-network-cidr=192.168.0.0/16 --kubernetes-version=v1.15.1 --apiserver-advertise-address=192.168.217.131  > /opt/k8s.init.txt
 
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
@@ -152,10 +196,11 @@ printf "+ You can contact me ,Mail:1300042631@qq.com                            
 printf "+                                                                                                +\n"
 printf "==================================================================================================\n"
 
-printf "========================================\n"
-printf "+                                      +\n"
-printf "+                                      +\n"
-echo -e "\033[32m+  Kubernetes Install Complete  ByeBye +\033[0m"
-printf "+                                      +\n"
-printf "+                                      +\n"
-printf "========================================\n"
+
+printf "==============================================\n"
+printf "+                                            +\n"
+printf "+                                            +\n"
+echo -e "\033[32m+  Kubernetes Install Completed.   ByeBye    +\033[0m"
+printf "+                                            +\n"
+printf "+                                            +\n"
+printf "==============================================\n"
