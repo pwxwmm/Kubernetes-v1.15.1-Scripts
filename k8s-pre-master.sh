@@ -6,50 +6,6 @@
 #Version:v0.1
 #K8s:V1.15.1
 #Docker:V19.03.1
-#This is Kubernetes Install One-Click Scripts  : k8s-pre-master.sh
-
-source /opt/k8s-openrc.sh
-
-printf "==========================================\n"
-printf "+                                        +\n"
-printf "+                                        +\n"
-echo -e "\033[32m+    Hi.    Welcome To Kubernetes        +\033[0m"
-printf "+                                        +\n"
-printf "+                                        +\n"
-printf "==========================================\n"
-
-#-------------------Judge EveryOne Node Hostname------------------------------
-if [[ `ip a |grep -w $HOST_MASTER_IP ` != '' ]];then
-        hostnamectl set-hostname $HOST_MASTER_NAME
-elif [[ `ip a |grep -w $HOST_WORKER1_IP ` != '' ]];then
-        hostnamectl set-hostname $HOST_WORKER1_NAME
-elif [[ `ip a |grep -w $HOST_WORKER2_IP ` != '' ]];then
-        hostnamectl set-hostname $HOST_WORKER2_NAME
-else
-        hostnamectl set-hostname $HOST_MASTER_NAME
-fi
-
-#--------------------Hosts Map----------------------------
-sed -i -e "/$HOST_MASTER_NAME/d" -e "/$HOST_WORKER1_NAME/d"  -e "/$HOST_WORKER2_NAME/d" /etc/hosts
-echo "$HOST_MASTER_IP $HOST_MASTER_NAME" >> /etc/hosts
-echo "$HOST_WORKER1_IP $HOST_WORKER1_NAME" >> /etc/hosts
-echo "$HOST_WORKER2_IP $HOST_WORKER2_NAME" >> /etc/hosts
-
-#------------------DNS Examine-------------------
-sed -i -e 's/#UseDNS yes/UseDNS no/g' -e 's/GSSAPIAuthentication yes/GSSAPIAuthentication no/g' /etc/ssh/sshd_config
-
-#----------------Judge  install software for  wget--------------------
-TMP_WGET=`rpm -qa wget`
-"k8s-pre-master.sh" 162L, 6899C written
-[root@k8s-node1 opt]# cat  k8s-pre-master.sh   
-#!/bin/bash
-
-#Author:weimengmeng
-#Date:August 3, 2019
-#Mail:1300042631@qq.com
-#Version:v0.1
-#K8s:V1.15.1
-#Docker:V19.03.1
 #This is Kubernetes Install One-Click Scripts
 
 source /opt/k8s-openrc.sh
