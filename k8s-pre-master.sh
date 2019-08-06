@@ -128,7 +128,7 @@ docker rmi coredns/coredns:1.3.1
 
 #==============K8s.Init=================
 echo "1" >/proc/sys/net/bridge/bridge-nf-call-iptables
-kubeadm init --pod-network-cidr=192.168.0.0/16 --kubernetes-version=v1.15.1 --apiserver-advertise-address=192.168.217.131  > /opt/k8s.init.txt
+kubeadm init --pod-network-cidr=192.168.0.0/16 --kubernetes-version=v1.15.1 --apiserver-advertise-address=$HOST_MASTER_IP  > /opt/k8s.init.txt
 
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
