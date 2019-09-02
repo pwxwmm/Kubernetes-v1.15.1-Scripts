@@ -5,7 +5,7 @@
 #Mail:1300042631@qq.com
 #Version:v0.1
 #K8s:V1.15.1
-#Docker:V19.03.1
+#Docker:V18.09.1
 #This is Kubernetes Install One-Click Scripts
 
 source /opt/k8s-openrc.sh
@@ -75,7 +75,7 @@ fi
 yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
 
 #-----------------Install Docker-----------------
-yum install docker-ce -y
+yum install docker-ce-18.09.8-3.el7 -y
 
 printf "\033[35m $(docker --version)\n\033[0m"
 
@@ -109,21 +109,34 @@ echo 'Environment="KUBELET_CGROUP_ARGS=--cgroup-driver=cgroupfs" '  >> /usr/lib/
 systemctl daemon-reload
 systemctl enable kubelet && systemctl start kubelet
 
+
 #=============Download.K8S===================
+ echo -e "\033[32mUp to date version\n\033[0m"
 kubeadm config images list
 
 #=============pull images====================
-kubeadm config images list |sed -e 's/^/docker pull /g' -e 's#k8s.gcr.io#mirrorgooglecontainers#g' |sh -x
-docker pull coredns/coredns:1.3.1
+#kubeadm config images list |sed -e 's/^/docker pull /g' -e 's#k8s.gcr.io#pwxwmm#g' |sh -x
+docker pull pwxwmm/kube-controller-manager:v1.15.1
+docker pull pwxwmm/kube-apiserver:v1.15.1
+docker pull pwxwmm/kube-scheduler:v1.15.1
+docker pull pwxwmm/kube-proxy:v1.15.1
+docker pull pwxwmm/pause:3.1
+docker pull pwxwmm/etcd:3.3.10
+docker pull pwxwmm/coredns:1.3.1
 
 #=============Alter Tag=====================
-docker images |grep mirrorgooglecontainers |awk '{print "docker tag ",$1":"$2,$1":"$2}' |sed -e 's#mirrorgooglecontainers#k8s.gcr.io#2' |sh -x
-docker tag coredns/coredns:1.3.1  k8s.gcr.io/coredns:1.3.1
-
+docker images |grep pwxwmm |awk '{print "docker tag ",$1":"$2,$1":"$2}' |sed -e 's#pwxwmm#k8s.gcr.io#2' |sh -x
+#docker tag coredns/coredns:1.3.1  k8s.gcr.io/coredns:1.3.1
+#docker tag  mirrorgooglecontainers/kube-apiserver-amd64:v1.15.1 k8s.gcr.io/kube-apiserver:v1.15.1
+#docker tag  mirrorgooglecontainers/kube-scheduler-amd64:v1.15.1 k8s.gcr.io/kube-scheduler:v1.15.1
+#docker tag  mirrorgooglecontainers/kube-controller-manager-amd64:v1.15.1 k8s.gcr.io/kube-controller-manager:v1.15.1
+#docker tag  mirrorgooglecontainers/kube-proxy-amd64:v1.15.1  k8s.gcr.io/kube-proxy:v1.15.1
+#docker tag  mirrorgooglecontainers/etcd:3.3.10 k8s.gcr.io/etcd:3.3.10
+#docker tag  mirrorgooglecontainers/pause:3.1 k8s.gcr.io/pause:3.1
 
 #=============Delete Repeat images===========
-docker images | grep mirrorgooglecontainers | awk '{print "docker rmi "  $1":"$2}' | sh -x
-docker rmi coredns/coredns:1.3.1
+docker images | grep pwxwmm | awk '{print "docker rmi "  $1":"$2}' | sh -x
+#docker rmi coredns/coredns:1.3.1
 
 
 #==============K8s.Init=================
